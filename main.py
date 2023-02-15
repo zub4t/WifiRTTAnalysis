@@ -132,8 +132,8 @@ class TeseWindow(tk.Tk):
                         rect1_x1, rect1_y1 = self.ap_locations_coordinate[ap]
                         rect1_x1 = rect1_x1 / 100
                         rect1_y1 = rect1_y1 / 100
-                        rect2_x1 = exp_x["xCoordinate"]
-                        rect2_y1 = exp_x["yCoordinate"]
+                        rect2_x1 = float(exp_x["xCoordinate"].replace(',','.'))
+                        rect2_y1 = float(exp_x["yCoordinate"].replace(',','.'))
 
                         distance = math.sqrt((rect1_x1 - rect2_x1) ** 2 + (rect1_y1 - rect2_y1) ** 2)
 
@@ -148,11 +148,12 @@ class TeseWindow(tk.Tk):
                             xmin = (data_x[0])
                             ymin = min(data_y)
 
-                            plt.annotate(f'{ap}_{exp}',
+                            '''plt.annotate(f'{ap}_{exp}',
                                          xy=(xmin, ymin), xycoords='data',
                                          xytext=(xmin + 1 + random_float, ymin - 1 + random_float), textcoords='data',
                                          arrowprops=dict(arrowstyle="->",
                                                  connectionstyle="arc3"))
+                            '''
         if(self.must_include_LMS_line.get()):
             # Define the initial guess for the parameters
             params0 = [1, 1]
@@ -278,8 +279,8 @@ class TeseWindow(tk.Tk):
         self.canvas.delete("all")
         self.draw_aps()
         self.create_grid(10, 6)
-        x = int(float(x_coordinate * 100))
-        y = int(float(y_coordinate * 100))
+        x = int(float(x_coordinate.replace(',','.')) * 100)
+        y = int(float(y_coordinate.replace(',','.')) * 100)
         self.mobile_location_id_rect = self.canvas.create_rectangle(x, y, x + 10, y + 10, fill="blue")
         self.draw_distances()
 
